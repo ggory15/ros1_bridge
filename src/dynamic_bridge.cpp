@@ -16,7 +16,7 @@
 #include <map>
 #include <memory>
 #include <set>
-#include <string>d
+#include <string>
 #include <utility>
 #include <vector>
 #include <boost/algorithm/string/predicate.hpp>   // NOLINT
@@ -273,6 +273,16 @@ void update_bridge(
     bridge.ros1_type_name = ros1_type_name;
     bridge.ros2_type_name = ros2_type_name;
 
+    auto ros2_publisher_qos = rclcpp::QoS(rclcpp::KeepLast(10));
+    if (topic_name == "/tf_static") {
+      ros2_publisher_qos.keep_all();
+      ros2_publisher_qos.transient_local();
+    }
+    else if (topic_name == "/rosout")
+    {
+      ros2_publisher_qos = rclcpp::RosoutQoS();
+    }
+    
     try {
       bridge.bridge_handles = ros1_bridge::create_bridge_from_2_to_1(
         ros2_node, ros1_node,
