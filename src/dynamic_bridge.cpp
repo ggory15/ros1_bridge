@@ -272,6 +272,9 @@ void update_bridge(
     Bridge2to1HandlesAndMessageTypes bridge;
     bridge.ros1_type_name = ros1_type_name;
     bridge.ros2_type_name = ros2_type_name;
+    printf(
+      "here '%s' with ROS 2 type '%s' and ROS 1 type '%s'\n",
+    topic_name.c_str());
 
     auto ros2_publisher_qos = rclcpp::QoS(rclcpp::KeepLast(10));
     if (topic_name == "/tf_static") {
@@ -282,7 +285,7 @@ void update_bridge(
     {
       ros2_publisher_qos = rclcpp::RosoutQoS();
     }
-    
+
     try {
       bridge.bridge_handles = ros1_bridge::create_bridge_from_2_to_1(
         ros2_node, ros1_node,
