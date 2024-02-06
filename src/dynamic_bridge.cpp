@@ -197,8 +197,11 @@ void update_bridge(
     Bridge1to2HandlesAndMessageTypes bridge;
     bridge.ros1_type_name = ros1_type_name;
     bridge.ros2_type_name = ros2_type_name;
+    printf(
+      "here '%s' \n",
+    topic_name.c_str());
 
-    auto ros2_publisher_qos = rclcpp::QoS(rclcpp::KeepLast(10));
+    auto ros2_publisher_qos = rclcpp::QoS(rclcpp::KeepLast(1000));
     if (topic_name == "/tf_static") {
       ros2_publisher_qos.keep_all();
       ros2_publisher_qos.transient_local();
@@ -276,7 +279,7 @@ void update_bridge(
       "here '%s' \n",
     topic_name.c_str());
 
-    auto ros2_publisher_qos = rclcpp::QoS(rclcpp::KeepLast(10));
+    auto ros2_publisher_qos = rclcpp::QoS(rclcpp::KeepLast(1000));
     if (topic_name == "/tf_static") {
       ros2_publisher_qos.keep_all();
       ros2_publisher_qos.transient_local();
