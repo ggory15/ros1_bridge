@@ -276,15 +276,15 @@ void update_bridge(
       "here '%s' with ROS 2 type '%s' and ROS 1 type '%s'\n",
     topic_name.c_str());
 
-    auto ros2_publisher_qos = rclcpp::QoS(rclcpp::KeepLast(10));
-    if (topic_name == "/tf_static") {
-      ros2_publisher_qos.keep_all();
-      ros2_publisher_qos.transient_local();
-    }
-    else if (topic_name == "/rosout")
-    {
-      ros2_publisher_qos = rclcpp::RosoutQoS();
-    }
+    // auto ros2_publisher_qos = rclcpp::QoS(rclcpp::KeepLast(10));
+    // if (topic_name == "/tf_static") {
+    //   ros2_publisher_qos.keep_all();
+    //   ros2_publisher_qos.transient_local();
+    // }
+    // else if (topic_name == "/rosout")
+    // {
+    //   ros2_publisher_qos = rclcpp::RosoutQoS();
+    // }
 
     try {
       bridge.bridge_handles = ros1_bridge::create_bridge_from_2_to_1(
